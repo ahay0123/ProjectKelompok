@@ -12,5 +12,6 @@ include_once('templates/footer.php')
         <div class="block-header">
             <h2>DASHBOARD</h2>
         </div>
+    </div>
 </section>
 

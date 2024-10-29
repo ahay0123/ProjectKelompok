@@ -21,7 +21,7 @@ function tambah_stock($data)
 
     $kode                   = htmlspecialchars($data["id_obat"]);
     $nama_obat              = htmlspecialchars($data["nama_obat"]);
-    $expired_date           = date("Y-M-D");
+    $expired_date           = date("Y-m-d", strtotime($data['expired_date']));
     $penyimpanan            = htmlspecialchars($data["penyimpanan"]);
     $banyak_stock           = htmlspecialchars($data["banyak_stock"]);
     $unit                   = htmlspecialchars($data["unit"]);

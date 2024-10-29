@@ -25,6 +25,11 @@ include_once('templates/footer.php')
                     <div class="alert alert-succes" role="alert">
                         Data Berhasil disimpan !
                     </div>
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = "stock_obat.php"
+                        }, 200)
+                    </script>
                 <?php
                 } else {
                 ?>
@@ -128,6 +133,19 @@ include_once('templates/footer.php')
     $kodeTamu = $huruf . sprintf("%03s", $urutan);
     ?>
 
+    <?php
+    // Mengambil nilai ENUM dari kolom unit di tabel stock_obat
+    $query = mysqli_query($koneksi, "SHOW COLUMNS FROM stock_obat LIKE 'unit'");
+    $data = mysqli_fetch_array($query);
+    $enumValues = explode("','", rtrim(ltrim($data['Type'], "enum('"), "')"));
+
+    // Mengambil nilai ENUM dari kolom kategori di tabel stock_obat
+    $query = mysqli_query($koneksi, "SHOW COLUMNS FROM stock_obat LIKE 'kategori'");
+    $data = mysqli_fetch_array($query);
+    $enumValuesKategori = explode("','", rtrim(ltrim($data['Type'], "enum('"), "')"));
+    ?>
+
+
     <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -164,18 +182,21 @@ include_once('templates/footer.php')
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" name="unit" id="unit" placeholder="Unit">
+                                                <?php foreach ($enumValues as $value): ?>
+                                                    <option value="<?= $value ?>"><?= $value ?></option>
+                                                <?php endforeach; ?>
                                             </select>
-                                        </div>
+                                        </div>  
                                     </div>
+
                                     <div class="form-group">
                                         <div class="form-line">
-                                        <input type="text" class="form-control" name="banyak_stock" id="banyak_stock" placeholder="Kategori" />
+                                        <select class="form-control" name="kategori" id="kateogri" placeholder="Kategori">
+                                                <?php foreach ($enumValuesKategori as $value): ?>
+                                                    <option value="<?= $value ?>"><?= $value ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
