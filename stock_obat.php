@@ -41,6 +41,10 @@ include_once('templates/footer.php')
             }
             ?>
 
+            <?php 
+                $enum_values = ambil_enum_values('stock_obat', 'unit');
+                $enum_values_kategori = ambil_enum_kategori('stock_obat', 'kategori');
+            ?>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -100,8 +104,8 @@ include_once('templates/footer.php')
                                             <td><?= $stock['harga_beli']; ?></td>
                                             <td><?= $stock['harga_jual']; ?></td>
                                             <td><?= $stock['nama_pemasok']; ?></td>
-                                            <td><button type="button" class="btn btn-success waves-effect">Ubah</button>
-                                                <button type="button" class="btn btn-danger waves-effect">Hapus</button>
+                                            <td><a type="button" href="edit_obat.php?id=<?= $stock['id_obat'] ?>" class="btn btn-success waves-effect">Ubah</a>
+                                                <button type="button"  class="btn btn-danger waves-effect">Hapus</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -131,18 +135,6 @@ include_once('templates/footer.php')
     // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya zt
     $huruf = "zt";
     $kodeTamu = $huruf . sprintf("%03s", $urutan);
-    ?>
-
-    <?php
-    // Mengambil nilai ENUM dari kolom unit di tabel stock_obat
-    $query = mysqli_query($koneksi, "SHOW COLUMNS FROM stock_obat LIKE 'unit'");
-    $data = mysqli_fetch_array($query);
-    $enumValues = explode("','", rtrim(ltrim($data['Type'], "enum('"), "')"));
-
-    // Mengambil nilai ENUM dari kolom kategori di tabel stock_obat
-    $query = mysqli_query($koneksi, "SHOW COLUMNS FROM stock_obat LIKE 'kategori'");
-    $data = mysqli_fetch_array($query);
-    $enumValuesKategori = explode("','", rtrim(ltrim($data['Type'], "enum('"), "')"));
     ?>
 
 
@@ -183,7 +175,7 @@ include_once('templates/footer.php')
                                     <div class="form-group">
                                         <div class="form-line">
                                             <select class="form-control" name="unit" id="unit" placeholder="Unit">
-                                                <?php foreach ($enumValues as $value): ?>
+                                                <?php foreach ($enum_values as $value): ?>
                                                     <option value="<?= $value ?>"><?= $value ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -193,7 +185,7 @@ include_once('templates/footer.php')
                                     <div class="form-group">
                                         <div class="form-line">
                                         <select class="form-control" name="kategori" id="kateogri" placeholder="Kategori">
-                                                <?php foreach ($enumValuesKategori as $value): ?>
+                                                <?php foreach ($enum_values_kategori as $value): ?>
                                                     <option value="<?= $value ?>"><?= $value ?></option>
                                                 <?php endforeach; ?>
                                             </select>
