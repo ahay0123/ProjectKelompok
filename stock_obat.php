@@ -105,7 +105,7 @@ include_once('templates/footer.php')
                                             <td><?= $stock['harga_jual']; ?></td>
                                             <td><?= $stock['nama_pemasok']; ?></td>
                                             <td><a type="button" href="edit_obat.php?id=<?= $stock['id_obat'] ?>" class="btn btn-success waves-effect">Ubah</a>
-                                                <button type="button"  class="btn btn-danger waves-effect">Hapus</button>
+                                                <a onclick="confirm('Apakaah anda yakin ingin menghapus data ini?')" href="hapus_data.php?id=<?= $stock['id_obat']?>"class="btn btn-danger waves-effect">Hapus</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

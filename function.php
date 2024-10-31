@@ -116,3 +116,15 @@ function ambil_enum_kategori($stock_obat, $kategori)
 
     return $enumValues;
 }
+
+// function hapus data
+function hapus_data($id)
+{
+    global $koneksi;
+
+    $query = "DELETE FROM stock_obat WHERE id_obat = '$id'";
+
+    mysqli_query($koneksi, $query);
+
+    return mysqli_affected_rows($koneksi);
+}
